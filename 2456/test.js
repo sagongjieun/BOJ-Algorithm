@@ -8,34 +8,45 @@ function strToNum(str) {
   return str.split(" ").map((i) => parseInt(i));
 }
 
+function sum(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) sum = sum + arr[i];
+  return sum;
+}
+
+function getCount(arr, num) {
+  return arr.filter((i) => i === num).length;
+}
+
 /* 전역변수 초기화 */
-let candidate1 = 0,
-  candidate2 = 0,
-  candidate3 = 0,
-  inputIndex = 0;
-let candidate = new Array(3).fill(0);
-let answer = new Array(2).fill(0);
+let inputIndex = 0;
+let candidate1 = [];
+let candidate2 = [];
+let candidate3 = [];
+let sumAll = [];
+let max = 0;
 let students = parseInt(input.shift()); //학생 수
 
 while (students--) {
-  candidate1 += strToNum(input[inputIndex])[0];
-  candidate2 += strToNum(input[inputIndex])[1];
-  candidate3 += strToNum(input[inputIndex])[2];
+  candidate1.push(strToNum(input[inputIndex])[0]);
+  candidate2.push(strToNum(input[inputIndex])[1]);
+  candidate3.push(strToNum(input[inputIndex])[2]);
+
   inputIndex++;
 }
-candidate[0] = candidate1;
-candidate[1] = candidate2;
-candidate[2] = candidate3;
 
-const highest = Math.max(...candidate);
-let countHighest = candidate.filter((i) => highest === i).length;
+sumAll.push(sum(candidate1));
+sumAll.push(sum(candidate2));
+sumAll.push(sum(candidate3));
 
-while (true) {
-  if (countHighest === 1) {
-    answer[0] = candidate.indexOf(highest) + 1;
-    answer[1] = highest;
-  }
-  // 최다득표자가 2명이상이면 3점개수 > 2점개수로 확인하고 더 낮은 사람은 득표수를 1로 낮추기 그리고 다시 while문 도는거
-
-  return answer;
+max = Math.max(...sumAll);
+if (getCount(sumAll, max) === 1) return `${sumAll.indexOf(max) + 1} ${max}`;
+else {
+  //여기까지왔다
+  candidate1.sort((a, b) => b - a);
+  candidate2.sort((a, b) => b - a);
+  candidate3.sort((a, b) => b - a);
+  console.log(candidate1);
+  console.log(candidate2);
+  console.log(candidate3);
 }
