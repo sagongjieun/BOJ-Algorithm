@@ -5,10 +5,13 @@ const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 let input = fs.readFileSync(filePath).toString().trim().split("\r\n");
 
 //순열
+// arr : 수가 담겨 있는 배열
+// selectNumber : 몇개로 구성된 순열을 구할 것인가
 function getPermutation(arr, selectNumber) {
-  const result = [];
+  const result = []; //결과를 담을 배열
   if (selectNumber === 1) return arr.map((value) => [value]);
 
+  //arr의 각 수에 대해
   arr.forEach((fixed, index, origin) => {
     const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
     const permutations = getPermutation(rest, selectNumber - 1);
@@ -21,8 +24,8 @@ function getPermutation(arr, selectNumber) {
 }
 
 let numbers = [];
-for (let i = 1; i <= parseInt(input[0]); i++) numbers.push(i);
-let answer = getPermutation(numbers, numbers.length);
+for (let i = 1; i <= parseInt(input[0]); i++) numbers.push(i); //1~N 까지의 수를 numbers에 담음
+let answer = getPermutation(numbers, numbers.length); //순열함수의 결과를 answer에 담음
 for (let i = 0; i < answer.length; i++) {
   console.log(answer[i].join(" "));
 }
