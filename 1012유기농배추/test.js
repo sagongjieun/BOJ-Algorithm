@@ -37,7 +37,7 @@ let graph, width, height, cabbage;
 let inputIndex = 0; //입력값 배열의 인덱스
 let testCase = parseInt(input[inputIndex++]);
 let distance = [
-  //상하좌우
+  //상하좌우 (행렬)
   [-1, 0],
   [1, 0],
   [0, -1],
